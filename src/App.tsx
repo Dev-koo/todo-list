@@ -38,6 +38,15 @@ function App() {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
 
+  const onChangeTodo = (id: number) => {
+    setTodos((prev) => {
+      const todos = prev.map((todo) =>
+        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
+      );
+      return todos;
+    });
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
@@ -46,7 +55,11 @@ function App() {
     <Background>
       <Container>
         <TodoHeader />
-        <TodoList todos={todos} onRemoveTodo={onRemoveTodo} />
+        <TodoList
+          todos={todos}
+          onRemoveTodo={onRemoveTodo}
+          onChangeTodo={onChangeTodo}
+        />
         <TodoAdd
           value={input}
           onChange={handleChange}
