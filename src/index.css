@@ -3,5 +3,11 @@
 @tailwind utilities;
 
 #root {
-  @apply h-screen flex items-center justify-center;
+  /* @apply w-screen h-screen; */
+}
+
+@layer components {
+  .darkMode-btn {
+    @apply rounded-full bg-slate-50  w-[40px] h-[40px];
+  }
 }
