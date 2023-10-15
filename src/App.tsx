@@ -34,6 +34,10 @@ function App() {
     inputRef.current?.focus();
   };
 
+  const onRemoveTodo = (id: number) => {
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
@@ -42,7 +46,7 @@ function App() {
     <Background>
       <Container>
         <TodoHeader />
-        <TodoList todos={todos} />
+        <TodoList todos={todos} onRemoveTodo={onRemoveTodo} />
         <TodoAdd
           value={input}
           onChange={handleChange}

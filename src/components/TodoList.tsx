@@ -4,12 +4,13 @@ import { Todos } from "../types";
 
 type Props = {
   todos: Todos;
+  onRemoveTodo: (id: number) => void;
 };
-export default function TodoList({ todos }: Props) {
+export default function TodoList({ todos, onRemoveTodo }: Props) {
   return (
     <ul className="px-4">
       {todos.map((todo) => (
-        <TodoItem key={todo.id} title={todo.title} isDone={todo.isDone} />
+        <TodoItem key={todo.id} todo={todo} onRemoveTodo={onRemoveTodo} />
       ))}
     </ul>
   );
