@@ -1,11 +1,11 @@
 import React from "react";
 import TodoItem from "./TodoItem";
-import { Todos } from "../types";
+import { Todo, Todos } from "../types";
 
 type Props = {
   todos: Todos;
   onRemoveTodo: (id: number) => void;
-  onChangeTodo: (id: number) => void;
+  onChangeTodo: (todo: Todo) => void;
 };
 export default function TodoList({ todos, onRemoveTodo, onChangeTodo }: Props) {
   return (

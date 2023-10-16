@@ -3,26 +3,35 @@ import { Todo } from "../types";
 type Props = {
   todo: Todo;
   onRemoveTodo: (id: number) => void;
-  onChangeTodo: (id: number) => void;
+  onChangeTodo: (todo: Todo) => void;
 };
 
 const TodoItem = ({
-  todo: { id, isDone, title },
+  todo: { id, status, title },
   onRemoveTodo,
   onChangeTodo,
 }: Props) => {
+  const handleCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const status = e.target.checked ? "Completed" : "Active";
+    const newTodo: Todo = {
+      id,
+      title,
+      status,
+    };
+    onChangeTodo(newTodo);
+  };
+
   return (
     <>
       <li
         className={`flex justify-between py-2 group ${
-          isDone ? "text-gray-400 line-through" : ""
+          status === "Active" ? "" : "text-gray-400 line-through"
         }`}
       >
         <input
           type="checkbox"
-          name=""
-          id=""
-          onChange={() => onChangeTodo(id)}
+          checked={status === "Completed"}
+          onChange={handleCheckChange}
         />
         {title}{" "}
         <Trash2

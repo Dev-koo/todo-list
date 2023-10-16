@@ -2,31 +2,41 @@ import { useRef, useState } from "react";
 import DarkModeButton from "./components/DarkModeButton";
 import TodoHeader from "./components/TodoHeader";
 import TodoList from "./components/TodoList";
-import { Todo, Todos } from "./types";
+import { FilterTypes, Todo, Todos } from "./types";
 import TodoAdd from "./components/TodoAdd";
 type Props = {
   children: React.ReactNode;
 };
+
+const filters: Array<FilterTypes> = ["All", "Active", "Completed"];
+
+function getFilteredTodo(filter: FilterTypes, todos: Todos) {
+  if (filter === "All") {
+    return todos;
+  }
+  return todos.filter((todo) => todo.status === filter);
+}
 
 function App() {
   const [todos, setTodos] = useState<Todos>([
     {
       id: 1,
       title: "책 읽기",
-      isDone: false,
+      status: "Active",
     },
     {
       id: 2,
       title: "코딩 하기",
-      isDone: false,
+      status: "Active",
     },
     {
       id: 3,
       title: "노래 듣기",
-      isDone: false,
+      status: "Active",
     },
   ]);
   const [input, setInput] = useState<string>("");
+  const [filter, setFilter] = useState<FilterTypes>("All");
   const inputRef = useRef<HTMLInputElement>(null);
   const onAddTodo = (todo: Todo) => {
     setTodos((prev) => prev.concat(todo));
@@ -38,25 +48,24 @@ function App() {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
 
-  const onChangeTodo = (id: number) => {
-    setTodos((prev) => {
-      const todos = prev.map((todo) =>
-        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
-      );
-      return todos;
-    });
+  const onChangeTodo = (updated: Todo) => {
+    setTodos((prev) =>
+      prev.map((todo) => (todo.id === updated.id ? updated : todo))
+    );
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
 
+  const filterd = getFilteredTodo(filter, todos);
+
   return (
     <Background>
       <Container>
-        <TodoHeader />
+        <TodoHeader filters={filters} onFilterChange={setFilter} />
         <TodoList
-          todos={todos}
+          todos={filterd}
           onRemoveTodo={onRemoveTodo}
           onChangeTodo={onChangeTodo}
         />

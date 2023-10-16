@@ -1,5 +1,6 @@
 import { v4 as uuid } from "uuid";
 import { Todo } from "../types";
+import { toast } from "react-hot-toast";
 type Props = {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -15,10 +16,14 @@ function extractNumbers(inputStr: string): number {
 
 const TodoAdd = ({ value, onChange, onAddTodo, inputRef }: Props) => {
   const handleClick = () => {
+    if (value.trim().length === 0) {
+      toast.error("Please write todo..");
+      return;
+    }
     const todo: Todo = {
       id: extractNumbers(uuid()),
       title: value,
-      isDone: false,
+      status: "Active",
     };
     onAddTodo(todo);
   };
