@@ -4,6 +4,7 @@ import TodoHeader from "./components/TodoHeader";
 import TodoList from "./components/TodoList";
 import { FilterTypes, Todo, Todos } from "./types";
 import TodoAdd from "./components/TodoAdd";
+import { useDarkMode } from "./provider/DarkeModeProvider";
 type Props = {
   children: React.ReactNode;
 };
@@ -84,8 +85,13 @@ function App() {
 export default App;
 
 const Background = ({ children }: Props) => {
+  const { darkMode } = useDarkMode();
   return (
-    <div className="bg-slate-400 w-screen h-screen flex items-center justify-center ">
+    <div
+      className={`${
+        darkMode ? "bg-slate-900" : "bg-slate-400"
+      } w-screen h-screen flex items-center justify-center `}
+    >
       {children}
     </div>
   );
