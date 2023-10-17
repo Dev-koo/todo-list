@@ -80,7 +80,7 @@ const Background = ({ children }: Props) => {
   return (
     <div
       className={`${
-        darkMode ? "bg-slate-400" : "bg-slate-900"
+        darkMode ? "bg-slate-900" : "bg-slate-400"
       } w-screen h-screen flex items-center justify-center `}
     >
       {children}
