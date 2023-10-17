@@ -5,7 +5,7 @@ type Context = {
   toggleDarkMode: VoidFunction;
 };
 
-const DarkModeContext = createContext<Context | null>(null);
+export const DarkModeContext = createContext<Context | null>(null);
 
 type Props = {
   children: React.ReactNode;

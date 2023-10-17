@@ -86,11 +86,12 @@ export default App;
 
 const Background = ({ children }: Props) => {
   const { darkMode } = useDarkMode();
+
   return (
     <div
       className={`${
         darkMode ? "bg-slate-900" : "bg-slate-400"
-      } w-screen h-screen flex items-center justify-center `}
+      } w-screen h-screen flex items-center justify-center  `}
     >
       {children}
     </div>
